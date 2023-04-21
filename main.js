@@ -29,6 +29,8 @@ function goBtnHandler() {
 }
 
 // MENU FUNCTIONS
+
+// Display All Contacts
 function displayContacts() {
   let outputStr = "";
 
@@ -38,54 +40,66 @@ function displayContacts() {
   outputEl.innerHTML = outputStr;
   loadContacts();
   saveContacts();
-  console.log("Display Contacts");
 }
 
+// Add Contact
 function addContact() {
   let contactName = prompt("Enter contact's name: ");
   let contactEmail = prompt("Enter contact's email: ");
   let contactPhoneNum = prompt("Enter contact's phone number: ");
   let contactCountry = prompt("Enter contact's country: ");
-  contacts.push(newContact(contactName));
-  contacts.push(newContact(contactEmail));
-  contacts.push(newContact(contactPhoneNum));
-  contacts.push(newContact(contactCountry));
+
+  contacts.push(
+    newContact(contactName, contactEmail, contactPhoneNum, contactCountry)
+  );
 
   outputEl.innerHTML = `<p>Contact added: ${contactName}.</ p>`;
+  loadContacts();
+  saveContacts();
 }
 
+// Remove Contact
 function removeContact() {
-  console.log("Remove Contact");
+  let index = +prompt("Enter # of contact:");
+  if (index >= 0 && index < contacts.length) {
+    //Valid index
+    contacts.splice(index, 1);
+    outputEl.innerHTML = `<p>Contact Removed: ${contacts[index]}.</ p>`;
+  } else {
+    outputEl.innerHTML = `<p>Invalid Index!</ p>`;
+  }
+  loadContacts();
+  saveContacts();
 }
 
+// Display Contact By Name
 function displayByName() {
-  console.log("Display by Name");
+  loadContacts();
+  saveContacts();
+  let nameSearch = prompt(
+    "Enter the name of the contact you're searching for: "
+  );
+
+  if (contacts.includes(nameSearch)) {
+    outputEl.innerHTML = `<p>we have that</ p>`;
+  } else {
+    outputEl.innerHTML = `<p>who's that?</ p>`;
+  }
 }
 
+// Display Contacts by Country
 function displayByCountry() {
   console.log("Display by Country");
 }
 
 // Helper Functions
 
-function newContact(name) {
+function newContact(initName, initEmail, initPhoneNum, initCountry) {
   return {
-    contactName: name,
-  };
-}
-function newContact(email) {
-  return {
-    contactEmail: email,
-  };
-}
-function newContact(phoneNum) {
-  return {
-    contactPhoneNum: phoneNum,
-  };
-}
-function newContact(country) {
-  return {
-    contactCountry: country,
+    name: initName,
+    email: initEmail,
+    phoneNum: initPhoneNum,
+    country: initCountry,
   };
 }
 
@@ -93,10 +107,10 @@ function newContact(country) {
 function getContactHTMLStr(contact, i) {
   return `
     <div> 
-      <h3><i>${i}</i>: ${contact.contactName}</h3>
-      <p>${contact.contactEmail}</p>
-      <p>${contact.contactPhoneNum}</p>
-      <p>${contact.contactCountry}</p>
+      <h3><i>${i}</i>: ${contact.name}</h3>
+      <p>${contact.email}</p>
+      <p>${contact.phoneNum}</p>
+      <p>${contact.country}</p>
 
     </ div>`;
 }
@@ -106,7 +120,7 @@ function saveContacts() {
   localStorage.setItem("contacts", JSON.stringify(contacts));
 }
 
-//Load Contacts from Local Storage
+// Load Contacts from Local Storage
 function loadContacts() {
   let contactsStr = localStorage.getItem("contacts");
   return JSON.parse(contactsStr) ?? [];
