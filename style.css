@@ -3,3 +3,14 @@ body {
   margin: auto;
   padding: 20px;
 }
+h1 {
+  padding: 12px;
+}
+
+div {
+  border: 1px solid grey;
+}
+p {
+  margin-left: 12px;
+  padding: 3px;
+}
