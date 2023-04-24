@@ -61,6 +61,7 @@ function addContact() {
 // Remove Contact
 function removeContact() {
   let index = +prompt("Enter # of contact:");
+
   if (index >= 0 && index < contacts.length) {
     //Valid index
     contacts.splice(index, 1);
@@ -74,17 +75,20 @@ function removeContact() {
 
 // Display Contact By Name
 function displayByName() {
+  let outputStr = "";
+
+  // Loop for Search
+  let nameSearch = prompt("Enter contact name: ");
+
+  for (let i = 0; i < contacts.length; i++) {
+    outputStr += getContactHTMLStr(contacts[i], i);
+    if (contacts.name == nameSearch) {
+      return (outputEl.innerHTML = "True");
+    }
+  }
+
   loadContacts();
   saveContacts();
-  let nameSearch = prompt(
-    "Enter the name of the contact you're searching for: "
-  );
-
-  if (contacts.includes(nameSearch)) {
-    outputEl.innerHTML = `<p>we have that</ p>`;
-  } else {
-    outputEl.innerHTML = `<p>who's that?</ p>`;
-  }
 }
 
 // Display Contacts by Country
@@ -107,7 +111,7 @@ function newContact(initName, initEmail, initPhoneNum, initCountry) {
 function getContactHTMLStr(contact, i) {
   return `
     <div> 
-      <h3><i>${i}</i>: ${contact.name}</h3>
+      <h3>${i}: ${contact.name}</h3>
       <p>${contact.email}</p>
       <p>${contact.phoneNum}</p>
       <p>${contact.country}</p>
