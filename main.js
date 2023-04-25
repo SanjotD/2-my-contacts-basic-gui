@@ -75,20 +75,20 @@ function removeContact() {
 
 // Display Contact By Name
 function displayByName() {
-  let outputStr = "";
-
-  // Loop for Search
+  outputEl.innerHTML = "";
   let nameSearch = prompt("Enter contact name: ");
+  // Loop for Search
 
   for (let i = 0; i < contacts.length; i++) {
-    outputStr += getContactHTMLStr(contacts[i], i);
-    if (contacts.name == nameSearch) {
-      return (outputEl.innerHTML = "True");
+    if (contacts[i] == nameSearch) {
+      outputEl += getContactHTMLStr(contacts[i], i);
+      nameSearch = contacts.name;
+
+      console.log(nameSearch);
+      console.log(contacts.name);
+      return (outputEl.innerHTML = contacts[i]);
     }
   }
-
-  loadContacts();
-  saveContacts();
 }
 
 // Display Contacts by Country
