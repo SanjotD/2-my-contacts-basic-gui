@@ -77,8 +77,8 @@ function removeContact() {
 function displayByName() {
   outputEl.innerHTML = "";
   let nameSearch = prompt("Enter contact name: ");
-  // Loop for Search
 
+  // Loop for Search
   for (let i = 0; i < contacts.length; i++) {
     if (contacts[i] == nameSearch) {
       outputEl += getContactHTMLStr(contacts[i], i);
@@ -98,6 +98,7 @@ function displayByCountry() {
 
 // Helper Functions
 
+// New Contact
 function newContact(initName, initEmail, initPhoneNum, initCountry) {
   return {
     name: initName,
