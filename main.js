@@ -25,6 +25,8 @@ function goBtnHandler() {
     displayByName();
   } else if (selection === "display-country") {
     displayByCountry();
+  } else if (selection === "display-email") {
+    searchByEmail();
   }
 }
 
@@ -65,7 +67,7 @@ function removeContact() {
   if (index >= 0 && index < contacts.length) {
     //Valid index
     contacts.splice(index, 1);
-    outputEl.innerHTML = `<p>Contact Removed: ${contacts[index]}.</ p>`;
+    outputEl.innerHTML = `<p>Contact Removed.</ p>`;
   } else {
     outputEl.innerHTML = `<p>Invalid Index!</ p>`;
   }
@@ -94,6 +96,12 @@ function displayByName() {
 // Display Contacts by Country
 function displayByCountry() {
   console.log("Display by Country");
+}
+
+//Search By Email
+function searchByEmail() {
+  let emailInput = prompt("Enter the contact's email:");
+  console.log(emailInput);
 }
 
 // Helper Functions
@@ -129,4 +137,14 @@ function saveContacts() {
 function loadContacts() {
   let contactsStr = localStorage.getItem("contacts");
   return JSON.parse(contactsStr) ?? [];
+}
+
+// Find by Email
+function findByEmail(email) {
+  let index = email;
+  if (index === -1) {
+    console.log("A contact with that email cols not be found");
+  } else {
+    console.log(`Contact was found with that email at the position ${index}.`);
+  }
 }
