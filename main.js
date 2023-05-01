@@ -82,12 +82,12 @@ function displayByName() {
 
   // Loop for Search
   for (let i = 0; i < contacts.length; i++) {
-    if (contacts[i] == nameSearch) {
+    if (contacts[i] === nameSearch) {
+      console.log(nameSearch);
+      console.log(contacts.name);
       outputEl += getContactHTMLStr(contacts[i], i);
       nameSearch = contacts.name;
 
-      console.log(nameSearch);
-      console.log(contacts.name);
       return (outputEl.innerHTML = contacts[i]);
     }
   }
