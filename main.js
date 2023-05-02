@@ -83,9 +83,7 @@ function displayByName() {
   // Loop for Search
   for (let i = 0; i < contacts.length; i++) {
     if (contacts[i] === nameSearch) {
-      console.log(nameSearch);
-      console.log(contacts.name);
-      outputEl += getContactHTMLStr(contacts[i], i);
+      contacts.getItem([i]);
       nameSearch = contacts.name;
 
       return (outputEl.innerHTML = contacts[i]);
@@ -142,6 +140,7 @@ function loadContacts() {
 // Find by Email
 function findByEmail(email) {
   let index = email;
+  for (let i = 0; i < contacts.length; i++) {}
   if (index === -1) {
     console.log("A contact with that email cols not be found");
   } else {
