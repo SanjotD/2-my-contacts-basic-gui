@@ -82,11 +82,12 @@ function displayByName() {
 
   // Loop for Search
   for (let i = 0; i < contacts.length; i++) {
-    if (contacts[i] === nameSearch) {
-      contacts.getItem([i]);
+    nameSearch = contacts.name;
+    if (nameSearch === contacts[i]) {
       nameSearch = contacts.name;
-
       return (outputEl.innerHTML = contacts[i]);
+    } else {
+      return (outputEl.innerHTML = "This name is not in your contacts list.");
     }
   }
 }
