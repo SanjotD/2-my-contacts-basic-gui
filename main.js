@@ -142,7 +142,7 @@ function findByEmail(email) {
   let index = email;
   for (let i = 0; i < contacts.length; i++) {}
   if (index === -1) {
-    console.log("A contact with that email cols not be found");
+    console.log("A contact with that email could not be found");
   } else {
     console.log(`Contact was found with that email at the position ${index}.`);
   }
