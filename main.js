@@ -48,6 +48,7 @@ function displayContacts() {
 function addContact() {
   let contactName = prompt("Enter contact's name: ");
   let contactEmail = prompt("Enter contact's email: ");
+  findByEmail(contactEmail);
   let contactPhoneNum = prompt("Enter contact's phone number: ");
   let contactCountry = prompt("Enter contact's country: ");
 
@@ -62,15 +63,26 @@ function addContact() {
 
 // Remove Contact
 function removeContact() {
-  let index = +prompt("Enter # of contact:");
-
-  if (index >= 0 && index < contacts.length) {
-    //Valid index
-    contacts.splice(index, 1);
-    outputEl.innerHTML = `<p>Contact Removed.</ p>`;
-  } else {
-    outputEl.innerHTML = `<p>Invalid Index!</ p>`;
+  let emailRemove = prompt(
+    "Enter the contact's email which you'd like to remove:"
+  );
+  for (let i = 0; i < contacts.length; i++) {
+    let emailSearch = contacts[i].email;
+    if (emailSearch.includes(emailRemove)) {
+      let index = emailSearch.indexOf(emailRemove);
+      console.log(index);
+      contacts.splice(index, 1);
+    }
   }
+  // let index = +prompt("Enter # of contact:");
+
+  // if (index >= 0 && index < contacts.length) {
+  //   //Valid index
+  //   contacts.splice(index, 1);
+  //   outputEl.innerHTML = `<p>Contact Removed.</ p>`;
+  // } else {
+  //   outputEl.innerHTML = `<p>Invalid Index!</ p>`;
+  // }
   loadContacts();
   saveContacts();
 }
@@ -78,29 +90,40 @@ function removeContact() {
 // Display Contact By Name
 function displayByName() {
   outputEl.innerHTML = "";
-  let nameSearch = prompt("Enter contact name: ");
 
-  // Loop for Search
+  let nameSearch = prompt("Enter contact's name: ");
+
   for (let i = 0; i < contacts.length; i++) {
-    nameSearch = contacts.name;
-    if (nameSearch === contacts[i]) {
-      nameSearch = contacts.name;
-      return (outputEl.innerHTML = contacts[i]);
-    } else {
-      return (outputEl.innerHTML = "This name is not in your contacts list.");
+    let nameCheck = contacts[i].name;
+    if (nameCheck.includes(nameSearch)) {
+      outputEl.innerHTML += getContactHTMLStr(contacts[i], i);
     }
   }
 }
 
 // Display Contacts by Country
 function displayByCountry() {
-  console.log("Display by Country");
+  outputEl.innerHTML = "";
+
+  let countrySearch = prompt("Enter contact's country: ");
+
+  for (let i = 0; i < contacts.length; i++) {
+    let countryCheck = contacts[i].country;
+    if (countryCheck.includes(countrySearch)) {
+      outputEl.innerHTML += getContactHTMLStr(contacts[i], i);
+    }
+  }
 }
 
 //Search By Email
-function searchByEmail() {
-  let emailInput = prompt("Enter the contact's email:");
-  console.log(emailInput);
+function searchByEmail(userEmail) {
+  for (let i = 0; i < contacts.length; i++) {
+    let emailCheck = contacts[i].email;
+    if (emailCheck.includes(userEmail)) {
+      let index = emailCheck.indexOf(userEmail);
+      alert(`This email has already been used and was found at ${index}.`);
+    }
+  }
 }
 
 // Helper Functions
@@ -139,12 +162,16 @@ function loadContacts() {
 }
 
 // Find by Email
-function findByEmail(email) {
-  let index = email;
-  for (let i = 0; i < contacts.length; i++) {}
-  if (index === -1) {
-    console.log("A contact with that email could not be found");
-  } else {
-    console.log(`Contact was found with that email at the position ${index}.`);
+function findByEmail(userEmail) {
+  for (let i = 0; i < contacts.length; i++) {
+    let emailCheck = contacts[i].email;
+    if (emailCheck.includes(userEmail)) {
+      let index = emailCheck.indexOf(userEmail);
+      if (index === -1) {
+        console.log("Contact with that email could not be found.");
+      } else {
+        console.log(`Contact with that email was found at position ${index}.`);
+      }
+    }
   }
 }
