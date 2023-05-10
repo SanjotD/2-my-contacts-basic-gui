@@ -66,14 +66,20 @@ function removeContact() {
   let emailRemove = prompt(
     "Enter the contact's email which you'd like to remove:"
   );
-  for (let i = 0; i < contacts.length; i++) {
-    let emailSearch = contacts[i].email;
-    if (emailSearch.includes(emailRemove)) {
-      let index = emailSearch.indexOf(emailRemove);
-      console.log(index);
-      contacts.splice(index, 1);
-    }
+  findByEmail(emailRemove);
+
+  if (contacts.includes(emailRemove)) {
+    let index = contacts.indexOf(emailRemove);
   }
+
+  // for (let i = 0; i < contacts.length; i++) {
+  //   let emailSearch = contacts[i].email;
+  //   if (emailSearch.includes(emailRemove)) {
+  //     let index = emailSearch.indexOf(emailRemove);
+  //     console.log(index);
+  //     contacts.splice(index, 1);
+  //   }
+  // }
   // let index = +prompt("Enter # of contact:");
 
   // if (index >= 0 && index < contacts.length) {
@@ -116,12 +122,17 @@ function displayByCountry() {
 }
 
 //Search By Email
-function searchByEmail(userEmail) {
+function searchByEmail() {
+  outputEl.innerHTML = "";
+
+  let emailSearch = prompt("Enter contact's email: ");
+
   for (let i = 0; i < contacts.length; i++) {
     let emailCheck = contacts[i].email;
-    if (emailCheck.includes(userEmail)) {
-      let index = emailCheck.indexOf(userEmail);
-      alert(`This email has already been used and was found at ${index}.`);
+    if (emailCheck.includes(emailSearch)) {
+      outputEl.innerHTML += getContactHTMLStr(contacts[i], i);
+      let index = emailCheck.indexOf(emailSearch);
+      console.log(index);
     }
   }
 }
@@ -165,13 +176,20 @@ function loadContacts() {
 function findByEmail(userEmail) {
   for (let i = 0; i < contacts.length; i++) {
     let emailCheck = contacts[i].email;
-    if (emailCheck.includes(userEmail)) {
-      let index = emailCheck.indexOf(userEmail);
-      if (index === -1) {
-        console.log("Contact with that email could not be found.");
-      } else {
-        console.log(`Contact with that email was found at position ${index}.`);
-      }
-    }
+    let index = emailCheck.indexOf(userEmail);
+    console.log(index);
   }
+
+  //   let emailCheck = contacts[i].email;
+  //   let index = emailCheck.indexOf(userEmail);
+  //   if (index === -1) {
+  //     return console.log("Contact with that email could not be found.");
+  //   } else {
+  //     console.log(emailCheck);
+  //     console.log(index);
+  //     return console.log(
+  //       `Contact with that email was found at posit
+  //         ion ${index}.`
+  //     );
+  // }
 }
