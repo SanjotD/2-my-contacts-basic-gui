@@ -49,6 +49,9 @@ function addContact() {
   let contactName = prompt("Enter contact's name: ");
   let contactEmail = prompt("Enter contact's email: ");
   findByEmail(contactEmail);
+  if (findByEmail === -1) {
+    return (outputEl.innerHTML = `Contact with this email was foudn at position ${index}`);
+  }
   let contactPhoneNum = prompt("Enter contact's phone number: ");
   let contactCountry = prompt("Enter contact's country: ");
 
@@ -66,12 +69,10 @@ function removeContact() {
   let emailRemove = prompt(
     "Enter the contact's email which you'd like to remove:"
   );
-  findByEmail(emailRemove);
-
-  if (contacts.includes(emailRemove)) {
-    let index = contacts.indexOf(emailRemove);
+  for (let i = 0; i < contacts.length; i++) {
+    findByEmail(emailRemove);
+    contacts.splice(contacts[i], 1);
   }
-
   // for (let i = 0; i < contacts.length; i++) {
   //   let emailSearch = contacts[i].email;
   //   if (emailSearch.includes(emailRemove)) {
@@ -131,13 +132,22 @@ function searchByEmail() {
     let emailCheck = contacts[i].email;
     if (emailCheck.includes(emailSearch)) {
       outputEl.innerHTML += getContactHTMLStr(contacts[i], i);
-      let index = emailCheck.indexOf(emailSearch);
-      console.log(index);
     }
   }
 }
 
 // Helper Functions
+
+// Find by Email
+function findByEmail(userEmail) {
+  for (let i = 0; i < contacts.length; i++) {
+    if (contacts[i].email === userEmail) {
+      return alert([i]);
+    } else {
+      alert(-1);
+    }
+  }
+}
 
 // New Contact
 function newContact(initName, initEmail, initPhoneNum, initCountry) {
@@ -170,26 +180,4 @@ function saveContacts() {
 function loadContacts() {
   let contactsStr = localStorage.getItem("contacts");
   return JSON.parse(contactsStr) ?? [];
-}
-
-// Find by Email
-function findByEmail(userEmail) {
-  for (let i = 0; i < contacts.length; i++) {
-    let emailCheck = contacts[i].email;
-    let index = emailCheck.indexOf(userEmail);
-    console.log(index);
-  }
-
-  //   let emailCheck = contacts[i].email;
-  //   let index = emailCheck.indexOf(userEmail);
-  //   if (index === -1) {
-  //     return console.log("Contact with that email could not be found.");
-  //   } else {
-  //     console.log(emailCheck);
-  //     console.log(index);
-  //     return console.log(
-  //       `Contact with that email was found at posit
-  //         ion ${index}.`
-  //     );
-  // }
 }
