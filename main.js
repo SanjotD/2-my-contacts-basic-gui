@@ -49,9 +49,6 @@ function addContact() {
   let contactName = prompt("Enter contact's name: ");
   let contactEmail = prompt("Enter contact's email: ");
   findByEmail(contactEmail);
-  if (findByEmail === -1) {
-    return (outputEl.innerHTML = `Contact with this email was foudn at position ${index}`);
-  }
   let contactPhoneNum = prompt("Enter contact's phone number: ");
   let contactCountry = prompt("Enter contact's country: ");
 
@@ -66,30 +63,15 @@ function addContact() {
 
 // Remove Contact
 function removeContact() {
-  let emailRemove = prompt(
-    "Enter the contact's email which you'd like to remove:"
-  );
-  for (let i = 0; i < contacts.length; i++) {
-    findByEmail(emailRemove);
-    contacts.splice(contacts[i], 1);
-  }
-  // for (let i = 0; i < contacts.length; i++) {
-  //   let emailSearch = contacts[i].email;
-  //   if (emailSearch.includes(emailRemove)) {
-  //     let index = emailSearch.indexOf(emailRemove);
-  //     console.log(index);
-  //     contacts.splice(index, 1);
-  //   }
-  // }
-  // let index = +prompt("Enter # of contact:");
+  let index = +prompt("Enter # of contact:");
 
-  // if (index >= 0 && index < contacts.length) {
-  //   //Valid index
-  //   contacts.splice(index, 1);
-  //   outputEl.innerHTML = `<p>Contact Removed.</ p>`;
-  // } else {
-  //   outputEl.innerHTML = `<p>Invalid Index!</ p>`;
-  // }
+  if (index >= 0 && index < contacts.length) {
+    //Valid index
+    contacts.splice(index, 1);
+    outputEl.innerHTML = `<p>Contact Removed.</ p>`;
+  } else {
+    outputEl.innerHTML = `<p>Invalid Index!</ p>`;
+  }
   loadContacts();
   saveContacts();
 }
